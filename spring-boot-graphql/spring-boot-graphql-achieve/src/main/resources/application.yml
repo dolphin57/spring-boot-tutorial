@@ -1,0 +1,4 @@
+graphql:
+  servlet:
+    mapping: /graphql
+    exception-handlers-enabled: true

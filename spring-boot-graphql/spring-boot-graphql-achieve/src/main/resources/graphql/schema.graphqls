@@ -1,0 +1,6 @@
+#定义实体类类型
+type Author {
+    id: Int!
+    name: String
+    photo: String
+}
