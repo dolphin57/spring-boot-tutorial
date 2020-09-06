@@ -30,6 +30,7 @@
         <module>spring-boot-database</module>
         <module>spring-boot-graphql</module>
         <module>spring-boot-custom-starter</module>
+        <module>spring-boot-mq</module>
     </modules>
 
     <properties>
