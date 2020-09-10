@@ -1,9 +1,14 @@
 package com.eric.sensitive.plugin;
 
+import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.eric.sensitive.config.Sensitive;
 import com.eric.sensitive.config.SensitiveStrategy;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
@@ -20,13 +25,14 @@ import java.util.stream.Stream;
 /**
  * @Description:
  * @Author: Eric Liang
- * @Since: 2020-9-10 9:30
+ * @Since: 2020-9-10 17:10
  */
-@Slf4j
-@Intercepts(@Signature(type = ResultSetHandler.class,
-        method = "handleResultSets",
-        args = {Statement.class}))
-public class SensitivePlugin implements Interceptor {
+@Setter
+@Accessors(chain = true)
+@Intercepts({@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})})
+public class SensitiveInterceptor extends AbstractSqlParserHandler implements Interceptor {
+    protected static final Log logger = LogFactory.getLog(SensitiveInterceptor.class);
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         List<Object> records = (List<Object>) invocation.proceed();

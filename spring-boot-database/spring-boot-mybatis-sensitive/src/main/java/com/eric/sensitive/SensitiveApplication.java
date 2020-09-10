@@ -1,6 +1,6 @@
 package com.eric.sensitive;
 
-import com.eric.sensitive.plugin.SensitivePlugin;
+import com.eric.sensitive.plugin.SensitiveInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ public class SensitiveApplication {
     }
 
     @Bean
-    public SensitivePlugin sensitivePlugin(){
-        return new SensitivePlugin();
+    public SensitiveInterceptor sensitiveInterceptor(){
+        return new SensitiveInterceptor();
     }
 }
