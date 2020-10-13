@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: dolphin-swagger3
+server:
+  port: 8080
+
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}
