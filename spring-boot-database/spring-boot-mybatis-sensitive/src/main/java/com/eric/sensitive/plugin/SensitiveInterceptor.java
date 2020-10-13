@@ -1,7 +1,6 @@
 package com.eric.sensitive.plugin;
 
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.eric.sensitive.config.Sensitive;
 import com.eric.sensitive.config.SensitiveStrategy;
 import lombok.Setter;

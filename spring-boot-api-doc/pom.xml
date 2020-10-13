@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>spring-boot-swagger3</module>
+        <module>spring-boot-knife4j</module>
     </modules>
 
     <parent>
