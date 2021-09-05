@@ -33,6 +33,7 @@
         <module>spring-boot-mq</module>
         <module>spring-boot-docker</module>
         <module>spring-boot-api-doc</module>
+        <module>spring-boot-longpolling</module>
     </modules>
 
     <properties>
