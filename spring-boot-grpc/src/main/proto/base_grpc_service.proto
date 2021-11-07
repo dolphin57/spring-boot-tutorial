@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.eric.proto";
+
+/***
+service处理类
+ */
+service BaseService
+{
+  //返回的data是对象
+  rpc method(Request) returns (Response){}
+
+  //返回的data是集合
+  rpc listMethod(Request) returns (ListResponse){}
+}
+
+
+//请求类
+message Request{
+  //请求类型
+  string type = 1;
+  //参数
+  string name = 2;
+}
+
+//用户信息
+message User{
+  int64 id=1;
+  string name=2;
+  string password=3;
+  string address=4;
+}
+
+
+message GirFriend{
+  string name=1;
+  string age=2;
+  string address=3;
+}
+
+//返回数据
+message Response {
+  string code = 1;
+  string message = 2;
+  bytes data=3;
+}
+
+//集合返回数据
+message ListResponse {
+  string code = 1;
+  string message = 2;
+  repeated bytes data=3;
+}
