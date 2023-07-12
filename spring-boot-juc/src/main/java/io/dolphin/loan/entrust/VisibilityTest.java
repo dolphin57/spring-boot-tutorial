@@ -1,4 +1,4 @@
-package io.dolphin.juc.jmm;
+package io.dolphin.loan.entrust;
 
 public class VisibilityTest {
     private boolean flag = true;

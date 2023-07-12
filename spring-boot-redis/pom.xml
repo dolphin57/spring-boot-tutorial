@@ -10,11 +10,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-boot-mq</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>spring-boot-redis</artifactId>
 
-    <modules>
-        <module>spring-boot-rocketmq</module>
-        <module>spring-boot-kafka</module>
-    </modules>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
 </project>
