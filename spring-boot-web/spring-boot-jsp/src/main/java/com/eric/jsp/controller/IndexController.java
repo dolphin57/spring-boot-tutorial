@@ -10,16 +10,17 @@ import java.util.Map;
 public class IndexController {
     @Value("${application.index:Hello Eric}")
     private String index;
-    @RequestMapping("/indexMap")
-    public String getIndex(Map<String, Object> map) {
-        System.out.printf("indexMap 访问");
-        map.put("index", index);
+
+    @RequestMapping("index")
+    public String getIndex() {
+        System.out.printf("访问index2");
         return "index";
     }
 
-    @RequestMapping("/index")
-    public String getIndex() {
-        System.out.printf("index 访问");
+    @RequestMapping("indexMap")
+    public String getIndex(Map<String, Object> map) {
+        System.out.printf("访问indexmap2");
+        map.put("index", index);
         return "index";
     }
 }

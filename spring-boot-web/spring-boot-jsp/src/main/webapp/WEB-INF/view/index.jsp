@@ -7,7 +7,7 @@
     <title>Insert title here</title>
 </head>
 <body>
-index
+index2
 <hr>
 ${index}
 </body>

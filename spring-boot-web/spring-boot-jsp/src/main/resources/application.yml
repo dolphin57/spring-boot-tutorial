@@ -1,9 +1,7 @@
-# ??jsp?????
 spring:
   mvc:
     view:
       prefix: /WEB-INF/view/
       suffix: .jsp
-# ?????,?controller???
 application:
   index: Hello Dolphin
