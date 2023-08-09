@@ -5,6 +5,9 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 等额本金还款方式
+ */
 public class AverageCapitalUtils {
     public static final int monthNum = 12;
 

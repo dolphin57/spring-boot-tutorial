@@ -1,4 +1,4 @@
-package com.eric.loanplan.util;
+package com.eric.loanplan;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -26,6 +26,32 @@ public class AveragePrincipalPlusInterestUtils {
      */
     public static Map<String, Object> getAveragePrincipalInterest(double loanAmount, double annualInterestRate, int loanTerm) {
         int totalMonth = loanTerm * monthNum;
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        BigDecimal perMonthPrincipalInterest = getPerMonthPrincipalInterest(loanAmount, annualInterestRate, totalMonth);
+        Map<Integer, BigDecimal> monthlyInterest = getPerMonthInterest(loanAmount, annualInterestRate, totalMonth);
+        Map<Integer, BigDecimal> mapPrincipal = getPerMonthPrincipal(loanAmount, annualInterestRate, totalMonth);
+        BigDecimal totalInterest = getInterestCount(loanAmount, annualInterestRate, totalMonth);
+        BigDecimal totalPrincipalInterest = getPrincipalInterestCount(loanAmount, annualInterestRate, totalMonth);
+
+        result.put("allMonth", totalMonth);//总月数
+        result.put("principalInterest", perMonthPrincipalInterest);//成本+利息
+//        result.put("benjin", mapPrincipal.get(1));//首月本金
+//        result.put("firstMapInterest", mapInterest.get(1));//首月利息
+        result.put("totalInterest", totalInterest);//总利息
+        result.put("allcount", totalPrincipalInterest);//本息合计
+
+        System.out.println("等额本息---每月本息：" + perMonthPrincipalInterest);
+        System.out.println("等额本息---首月本金:" + mapPrincipal.get(1));
+        System.out.println("等额本息---每月本金：" + mapPrincipal);
+        System.out.println("等额本息---首月利息：" + monthlyInterest.get(1));
+        System.out.println("等额本息---每月利息：" + monthlyInterest);
+        System.out.println("等额本息---总利息：" + totalInterest);
+        System.out.println("等额本息---本息合计：" + totalPrincipalInterest);
+        return result;
+    }
+
+    public static Map<String, Object> getAveragePrincipalInterestByMonth(double loanAmount, double annualInterestRate, int totalMonth) {
         Map<String, Object> result = new HashMap<String, Object>();
 
         BigDecimal perMonthPrincipalInterest = getPerMonthPrincipalInterest(loanAmount, annualInterestRate, totalMonth);
@@ -86,16 +112,7 @@ public class AveragePrincipalPlusInterestUtils {
     /**
      * 等额本息计算每月偿还本金和利息
      * 公式：每月偿还本息=(贷款本金×月利率×(1＋月利率))^还款月数)/(1＋月利率)^还款月数-1)
-     * <p>
-     * 等额本息公式推导(银行按月复利计息，我们每个月还相等数额，最后一个月把钱还完)：
-     * 设贷款总额为a,月利率为b,分期数为m,每月还款额(本金+利息)设为X,则：
-     * 第1个月贷款余额 = a(1+b)-x,
-     * 第2个月贷款余额 = [a(1+b)-x](1+b)-x=a(1+b)(1+b)-x(1+b)-x=a(1+b)^2-x[(1+b)+1],
-     * 继续推导下去,可以得出....
-     * 第个n月贷款余额：a(1+b)^n-x[1+(1+b)+(1+b)^2+...+(1+b)^(n-1)]=a(1+b)^n-X[(1+b)^n-1]/b 中框内是等比数列转换
-     * 由于总分期数为m,第m月刚好还完贷款时,贷款余额为0,则有：a(1+b)^m-X[(1+b)^m-1]/b = 0
-     * 换算得出：x = ab(1+b)^m/[(1+b)^m-1]
-     *
+
      * @param loanAmount         总借款额/贷款本金
      * @param annualInterestRate 年利率
      * @param totalMonth         还款总月数
@@ -112,18 +129,6 @@ public class AveragePrincipalPlusInterestUtils {
     /**
      * 等额本息计算每月偿还利息
      * 公式：每月偿还利息=贷款本金×月利率×((1+月利率)^还款月数-(1+月利率)^(还款月序号-1)) / ((1+月利率)^还款月数-1)
-     * <p>
-     * 等额本息每个月还的本金和利息推导：
-     * 设贷款总额为a,月利率为b,分期数为m,每月还款额(本金+利息)设为X,则：
-     * <p>
-     * 第一个月,未还金额为a,待还的利息为a*b,待还的本金为X-a*b
-     * 第二个月,未还金额为a+a*b-X,待还的利息为[a(1+b)-x]*b,待还的本金为X-[a(1+b)-x]*b
-     * 第三个月,待还的利息为[a(1+b)^2-x*(1+b)-x]*b,待还的本金为X-[a(1+b)^2-x*(1+b)-x]*b
-     * .....
-     * 第n个月,待还的利息为[a(1+b)^(n-1)-...-x(1+b)^2-x(1+b)-x]*b,待还的本金为X-[a(1+b)^(n-1)-...-x(1+b)^2-x(1+b)-x]*b
-     * 转换计算公式 利息为[a(1+b)^(n-1)-x[(1+b)^(n-1)-1]/b]*b = [(1+b)^(n-1)(a*b-x)]-1
-     * x = ab(1+b)^m/[(1+b)^m-1], 带入后算出 ab(1+b)^(n-1) - [(1+b)^(n-1)-1]ab(1+b)^m/[(1+b)^(m-1)-1] = ab[(1+b)^m-(1+b)^(n-1)]/[(1+b)^(m-1)-1]
-     * 待还的本金为 X-[a(1+b)^(m-1)-x[(1+b)^(m-1)-1]/b]*b
      *
      * @param loanAmount         总借款额/贷款本金
      * @param annualInterestRate 年利率
@@ -148,8 +153,6 @@ public class AveragePrincipalPlusInterestUtils {
 
     /**
      * 等额本息计算每月偿还本金
-     * 1. 待还的本金为 X-[a(1+b)^(m-1)-x[(1+b)^(m-1)-1]/b]*b, 其中x = ab(1+b)^m/[(1+b)^m-1]
-     * 2. 每月偿还本息 - 每月偿还利息
      *
      * @param loanAmount         总借款额（贷款本金）
      * @param annualInterestRate 年利率
@@ -213,10 +216,10 @@ public class AveragePrincipalPlusInterestUtils {
      * @param args
      */
     public static void main(String[] args) {
-        double loanAmount = 1000000;
-        int totalMonth = 120;
+        double loanAmount = 83790;
+        int totalMonth = 5;
         int loanTerm = 10;
-        double annualInterestRate = 0.049;
+        double annualInterestRate = 0.057;
 
 //        Map<Integer, BigDecimal> mapInterest = getPerMonthInterest(loanAmount, annualInterestRate, totalMonth);
 //        for (Map.Entry<Integer, BigDecimal> entry : mapInterest.entrySet()) {
@@ -225,6 +228,6 @@ public class AveragePrincipalPlusInterestUtils {
 
 //        BigDecimal perMonthPrincipalInterest = getPerMonthPrincipalInterest(loanAmount, annualInterestRate, totalMonth);
 //        System.out.println(perMonthPrincipalInterest);
-        Map<String, Object> result = getAveragePrincipalInterest(loanAmount, annualInterestRate, loanTerm);
+        Map<String, Object> result = getAveragePrincipalInterestByMonth(loanAmount, annualInterestRate, totalMonth);
     }
 }
