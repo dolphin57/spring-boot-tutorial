@@ -1,12 +1,13 @@
 package com.eric.loanplan.template;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public abstract class LoanTemplate {
-    public abstract void getPerPrincipal(BigDecimal loanAmount, int loanTerm);
-    public abstract void getPerRemainingPrincipal(BigDecimal loanAmount, int loanTerm);
-    public abstract void getPerInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
-    public abstract void getPerPrincipalInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
-    public abstract void getTotalInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
+    public abstract Map<Integer, BigDecimal> getPerPrincipal(BigDecimal loanAmount,BigDecimal annualInterestRate, int loanTerm);
+    public abstract Map<Integer, BigDecimal> getPerRemainingPrincipal(BigDecimal loanAmount, int loanTerm);
+    public abstract Map<Integer, BigDecimal> getPerInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
+    public abstract Map<Integer, BigDecimal> getPerPrincipalInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
+    public abstract BigDecimal getTotalInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm);
 
 }
