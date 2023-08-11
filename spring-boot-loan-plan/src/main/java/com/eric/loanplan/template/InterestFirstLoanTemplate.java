@@ -1,15 +1,30 @@
 package com.eric.loanplan.template;
 
+import com.eric.loanplan.datestrategy.DateSplitStrategy;
 import com.eric.loanplan.intereststrategy.InterestCalculationStrategy;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InterestFirstLoanTemplate extends LoanTemplate {
     public static final int monthNum = 12;
 
     private InterestCalculationStrategy interestCalculationStrategy;
+
+    private DateSplitStrategy dateSplitStrategy;
+
+    public InterestFirstLoanTemplate(InterestCalculationStrategy interestCalculationStrategy, DateSplitStrategy dateSplitStrategy) {
+        this.interestCalculationStrategy = interestCalculationStrategy;
+        this.dateSplitStrategy = dateSplitStrategy;
+    }
+
+    @Override
+    public List<LocalDate> splitDate(LocalDate startDate, LocalDate endDate, int repaymentDate) {
+        return dateSplitStrategy.split(startDate, endDate, repaymentDate);
+    }
 
     @Override
     public Map<Integer, BigDecimal> getPerPrincipal(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm) {
@@ -24,7 +39,10 @@ public class InterestFirstLoanTemplate extends LoanTemplate {
     @Override
     public Map<Integer, BigDecimal> getPerInterest(BigDecimal loanAmount, BigDecimal annualInterestRate, int loanTerm) {
         // todo 需要处理边界利息, 如首月不足期、
-        return null;
+//        List<LocalDate> dateList = dateSplitStrategy.split(startDate, endDate, repaymentDate);
+//        int loanTerm = dateList.size();
+        Map<Integer, BigDecimal> integerMap = interestCalculationStrategy.calculateInterest(loanAmount, annualInterestRate, loanTerm);
+        return integerMap;
     }
 
     @Override

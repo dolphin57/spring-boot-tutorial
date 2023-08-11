@@ -1,13 +1,25 @@
 package com.eric.loanplan.template;
 
+import com.eric.loanplan.datestrategy.DateSplitStrategy;
+import com.eric.loanplan.intereststrategy.InterestCalculationStrategy;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * 等额本金还款方式
  */
 public class EqualPrincipalLoanTemplate extends LoanTemplate {
+
+    private DateSplitStrategy dateSplitStrategy;
+
+    public EqualPrincipalLoanTemplate(DateSplitStrategy dateSplitStrategy) {
+        this.dateSplitStrategy = dateSplitStrategy;
+    }
+
     @Override
     public Map<Integer, BigDecimal> getPerPrincipal(BigDecimal loanAmount,BigDecimal annualInterestRate, int loanTerm) {
         Map<Integer, BigDecimal> principalMap = new HashMap<>();
@@ -72,5 +84,10 @@ public class EqualPrincipalLoanTemplate extends LoanTemplate {
             totalInterest = totalInterest.add(entry.getValue());
         }
         return totalInterest.setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    @Override
+    public List<LocalDate> splitDate(LocalDate startDate, LocalDate endDate, int repaymentDate) {
+        return dateSplitStrategy.split(startDate, endDate, repaymentDate);
     }
 }

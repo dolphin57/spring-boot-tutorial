@@ -1,10 +1,11 @@
-package com.eric.loanplan.date;
+package com.eric.loanplan.datestrategy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class HalfYearSplitter implements DateSplitter {
+public class HalfYearSplitStrategy implements DateSplitStrategy {
     @Override
     public List<LocalDate> split(LocalDate startDate, LocalDate endDate, int repaymentDate) {
         List<LocalDate> result = new ArrayList<>();
@@ -14,5 +15,10 @@ public class HalfYearSplitter implements DateSplitter {
             currentDate = currentDate.plusMonths(6);
         }
         return result;
+    }
+
+    @Override
+    public Map<Integer, List<LocalDate>> splitStartEnd(LocalDate startDate, LocalDate endDate, int repaymentDate) {
+        return null;
     }
 }

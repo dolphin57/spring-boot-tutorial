@@ -1,5 +1,7 @@
 package com.eric.loanplan.template;
 
+import com.eric.loanplan.datestrategy.DateSplitStrategy;
+import com.eric.loanplan.datestrategy.MonthSplitStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,8 @@ class EqualPrincipalLoanTemplateTest {
 
     @BeforeEach
     void setUp() {
-        principalLoanTemplate = new EqualPrincipalLoanTemplate();
+        DateSplitStrategy splitStrategy = new MonthSplitStrategy();
+        principalLoanTemplate = new EqualPrincipalLoanTemplate(splitStrategy);
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.eric.loanplan.template;
 
+import com.eric.loanplan.datestrategy.DateSplitStrategy;
+import com.eric.loanplan.datestrategy.MonthSplitStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +20,8 @@ class EqualInstallmentLoanTemplateTest {
 
     @BeforeEach
     void setUp() {
-        equalInstallmentLoanTemplate = new EqualInstallmentLoanTemplate();
+        DateSplitStrategy splitStrategy = new MonthSplitStrategy();
+        equalInstallmentLoanTemplate = new EqualInstallmentLoanTemplate(splitStrategy);
         loanAmount = BigDecimal.valueOf(1000000L); //贷款本金
         annualInterestRate = BigDecimal.valueOf(0.049); //年利息
         loanTerm = 120; //贷款期数

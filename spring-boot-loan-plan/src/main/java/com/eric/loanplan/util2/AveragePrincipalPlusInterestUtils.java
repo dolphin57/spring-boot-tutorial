@@ -1,4 +1,4 @@
-package com.eric.loanplan;
+package com.eric.loanplan.util2;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
