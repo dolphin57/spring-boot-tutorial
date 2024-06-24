@@ -1,0 +1,4 @@
+## examples/lambda.av
+
+let three = (lambda (x,y) -> x + y end)(1, 2);
+println(three);

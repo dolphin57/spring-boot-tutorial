@@ -38,6 +38,17 @@
         <module>spring-boot-juc</module>
         <module>spring-boot-redis</module>
         <module>spring-boot-event</module>
+        <module>spring-boot-limiter</module>
+        <module>spring-boot-ptl</module>
+        <module>spring-boot-date</module>
+        <module>spring-boot-dag</module>
+        <module>spring-boot-libsvm</module>
+        <module>spring-boot-segment</module>
+        <module>spring-boot-snowflake</module>
+        <module>spring-boot-mvel</module>
+        <module>spring-boot-number-manage</module>
+        <module>spring-boot-ratelimiter</module>
+        <module>spring-boot-aviator</module>
     </modules>
 
     <properties>

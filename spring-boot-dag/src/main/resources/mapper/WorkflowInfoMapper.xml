@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.dolphin.dag.mapper.WorkflowInfoMapper">
+
+
+    <insert id="insertOrUpdate">
+        insert into workflow_info
+        (id, wf_name, wf_description, time_expression_type, time_expression, max_wf_instance_num, enable, notify_user_ids, pe_dag, lifecycle, extra, gmt_create, gmt_modified)
+        values
+        (#{id}, #{wfName}, #{wfDescription}, #{timeExpressionType}, #{timeExpression}, #{maxWfInstanceNum}, #{enable}, #{notifyUserIds}, #{peDAG}, #{lifecycle}, #{extra}, #{gmtCreate}, #{gmtModified})
+        on duplicate key update
+        wf_name = #{wfName},
+        wf_description = #{wfDescription},
+        time_expression_type = #{timeExpressionType},
+        time_expression = #{timeExpression},
+        max_wf_instance_num = #{maxWfInstanceNum},
+        enable = #{enable},
+        notify_user_ids = #{notifyUserIds},
+        pe_dag = #{peDAG},
+        lifecycle = #{lifecycle},
+        extra = #{extra},
+        gmt_modified = #{gmtModified}
+    </insert>
+</mapper>

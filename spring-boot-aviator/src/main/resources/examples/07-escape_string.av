@@ -1,0 +1,4 @@
+## examples/escape_string.av
+
+println('Dennis\'s car');
+println('AviatorScript is great.\r\nLet\'s try it!');

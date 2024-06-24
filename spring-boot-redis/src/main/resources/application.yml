@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: dolphin-redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000
+    lettuce:
+      pool:
+        enabled: true
+        max_active: 200
+        max_wait: 10000
+        max_idle: 10
+        min_idle: 0

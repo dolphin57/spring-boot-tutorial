@@ -1,0 +1,35 @@
+### 保存工作流
+POST http://localhost:8080/workflow/save
+Content-Type: application/json
+
+{
+  "id": "",
+  "appId": 1,
+  "enable": true,
+  "maxWfInstanceNum": 2,
+  "notifyUserIds": [],
+  "timeExpression": "0 0/5 * * * ? *",
+  "timeExpressionType": "CRON",
+  "wfDescription": "dolphin工作流",
+  "wfName": "dolphinDAG",
+  "lifeCycle": null,
+  "dag": {
+    "nodes": [
+      {
+        "nodeId": "397"
+      },
+      {
+        "nodeId": "398"
+      }
+    ],
+    "edges": [
+      {
+        "from": "398",
+        "to": "397"
+      }
+    ]
+  }
+}
+
+### 运行工作流
+GET http://localhost:8080/workflow/run?appId=1&workflowId=2

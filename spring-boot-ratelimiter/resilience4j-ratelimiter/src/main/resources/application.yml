@@ -1,0 +1,7 @@
+resilience4j: # resilience4j的配置开始，用于增加服务弹性的库
+  ratelimiter: # 限流机制的配置，用于防止过多的请求涌入系统
+    instances:
+      rateLimiterApi: # 第一个限流策略实例的名称
+        limit-for-period: 5 # 在一个特定的时间周期内，允许的最大请求数量为5
+        limit-refresh-period: 5s  # 时间周期长度为1s，即每秒会重置请求计数
+        timeout-duration: 100ms # 当请求超过限制时，客户端应立即收到超时的响应，而不等待处理
